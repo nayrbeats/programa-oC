@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Gestão para Academias de Luta</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#0a0a0a;
+  --dark:#141414;
+  --red:#e50914;
+  --green:#00ff6a;
+  --white:#ffffff;
+  --gray:#bfbfbf;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+}
+
+section{padding:90px 0}
+
+.container{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+}
+
+h1,h2{
+  font-family:'Oswald',sans-serif;
+  letter-spacing:1px;
+}
+
+.btn{
+  background:var(--green);
+  color:#000;
+  padding:14px 30px;
+  font-weight:700;
+  border-radius:6px;
+  border:none;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  background:linear-gradient(180deg,#000,#111);
+}
+
+.hero h1{font-size:3.2rem}
+.hero span{color:var(--red)}
+.hero p{
+  color:var(--gray);
+  max-width:650px;
+  margin:25px auto 40px;
+}
+
+/* SISTEMA */
+.sistema{background:var(--dark)}
+.mockup{
+  background:#000;
+  border:1px solid #222;
+  border-radius:10px;
+  padding:30px;
+  margin-top:50px;
+}
+
+/* TABS */
+.tabs{display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}
+.tab{
+  background:#111;
+  padding:10px 18px;
+  cursor:pointer;
+  border-radius:4px;
+}
+.tab.active{background:var(--red)}
+
+/* PAINEL */
+.painel{display:none}
+.painel.active{display:block}
+
+/* PERFIL DO ALUNO */
+.aluno{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.avatar{
+  width:120px;
+  height:120px;
+  background:#222;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gray);
+  font-size:12px;
+}
+
+.info p{
+  margin-bottom:8px;
+  color:var(--gray);
+}
+
+/* INDICADORES */
+.indicadores{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.box{
+  background:#111;
+  padding:15px;
+  border-radius:6px;
+  text-align:center;
+}
+
+.box strong{color:var(--red)}
+
+/* NOVO ALUNO */
+.add-aluno{
+  display:flex;
+  justify-content:flex-end;
+  margin:20px 0 10px;
+}
+
+.add-aluno button{
+  background:var(--red);
+  color:#fff;
+  padding:10px 14px;
+  border-radius:6px;
+}
+
+/* FORM */
+.form-aluno{
+  display:none;
+  background:#111;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:20px;
+}
+
+.form-aluno input,
+.form-aluno select{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:4px;
+  border:none;
+}
+
+/* LISTA */
+.lista-alunos{display:grid;gap:12px}
+
+.aluno-card{
+  background:#111;
+  padding:15px;
+  border-radius:6px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.aluno-card:hover{
+  background:#1b1b1b;
+}
+
+.editar{
+  cursor:pointer;
+  color:var(--green);
+  font-size:18px;
+}
+
+footer{
+  background:#000;
+  padding:20px;
+  text-align:center;
+  color:var(--gray);
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="container">
+    <h1>Sistema de Gestão para <span>Academias de Luta</span></h1>
+    <p>Controle alunos, mensalidades e evolução em um único painel.</p>
+    <a href="#demo" class="btn">Ver Demonstração</a>
+  </div>
+</section>
+
+<section class="sistema" id="demo">
+  <div class="container">
+    <div class="mockup">
+
+      <div class="tabs">
+        <div class="tab active" onclick="showTab(0)">Aluno</div>
+        <div class="tab" onclick="showTab(1)">Graduação</div>
+        <div class="tab" onclick="showTab(2)">Treinos</div>
+        <div class="tab" onclick="showTab(3)">Calendário</div>
+        <div class="tab" onclick="showTab(4)">Financeiro</div>
+        <div class="tab" onclick="showTab(5)">Horários</div>
+      </div>
+
+      <!-- ALUNO -->
+      <div class="painel active">
+
+        <!-- PERFIL -->
+        <div class="aluno">
+          <div class="avatar">Foto</div>
+          <div class="info" id="perfilInfo">
+            <p><strong>Nome:</strong> Nenhum aluno selecionado</p>
+            <p><strong>Faixa:</strong> -</p>
+            <p><strong>Início:</strong> -</p>
+          </div>
+        </div>
+
+        <div class="indicadores">
+          <div class="box"><strong>Status</strong> Ativo</div>
+          <div class="box"><strong>Mensalidade</strong> Em dia</div>
+          <div class="box"><strong>Faixa</strong> Atual</div>
+        </div>
+
+        <div class="add-aluno">
+          <button onclick="toggleForm()">+ Novo Aluno</button>
+        </div>
+
+        <div class="form-aluno" id="formAluno">
+          <input id="nome" placeholder="Nome do aluno">
+          <input id="telefone" placeholder="Telefone">
+          <input id="celular" placeholder="Celular">
+          <input id="endereco" placeholder="Endereço">
+
+          <select id="faixa">
+            <option>Branca</option>
+            <option>Azul</option>
+            <option>Roxa</option>
+            <option>Marrom</option>
+            <option>Preta</option>
+          </select>
+
+          <input type="date" id="inicio">
+
+          <select id="vencimento">
+            <option value="">Dia do vencimento</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+            <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+            <option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
+            <option>21</option><option>22</option><option>23</option><option>24</option><option>25</option>
+            <option>26</option><option>27</option><option>28</option><option>29</option><option>30</option>
+            <option>31</option>
+          </select>
+
+          <button class="btn" onclick="salvarAluno()">Salvar</button>
+        </div>
+
+        <div class="lista-alunos" id="listaAlunos"></div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 • Sistema de Gestão para Academias de Artes Marciais</footer>
+
+<script>
+function showTab(i){
+  document.querySelectorAll('.tab').forEach((t,x)=>t.classList.toggle('active',x===i));
+  document.querySelectorAll('.painel').forEach((p,x)=>p.classList.toggle('active',x===i));
+}
+
+let alunos = [];
+let indiceEdicao = null;
+
+function toggleForm(){
+  formAluno.style.display = formAluno.style.display === 'block' ? 'none' : 'block';
+}
+
+function salvarAluno(){
+  const aluno = {
+    nome:nome.value,
+    telefone:telefone.value,
+    celular:celular.value,
+    endereco:endereco.value,
+    faixa:faixa.value,
+    inicio:inicio.value,
+    vencimento:vencimento.value
+  };
+
+  if(indiceEdicao === null){
+    alunos.push(aluno);
+  }else{
+    alunos[indiceEdicao] = aluno;
+    indiceEdicao = null;
+  }
+
+  ordenarAlunos();
+  renderAlunos();
+  atualizarPerfil(aluno);
+  formAluno.style.display = 'none';
+}
+
+function ordenarAlunos(){
+  alunos.sort((a,b)=>a.nome.localeCompare(b.nome));
+}
+
+function atualizarPerfil(a){
+  perfilInfo.innerHTML = `
+    <p><strong>Nome:</strong> ${a.nome}</p>
+    <p><strong>Faixa:</strong> ${a.faixa}</p>
+    <p><strong>Início:</strong> ${a.inicio || '-'}</p>
+  `;
+}
+
+function editarAluno(i){
+  const a = alunos[i];
+  indiceEdicao = i;
+
+  nome.value = a.nome;
+  telefone.value = a.telefone;
+  celular.value = a.celular;
+  endereco.value = a.endereco;
+  faixa.value = a.faixa;
+  inicio.value = a.inicio;
+  vencimento.value = a.vencimento;
+
+  atualizarPerfil(a);
+  formAluno.style.display = 'block';
+}
+
+function renderAlunos(){
+  listaAlunos.innerHTML = '';
+  alunos.forEach((a,i)=>{
+    const div = document.createElement('div');
+    div.className = 'aluno-card';
+    div.onclick = ()=>atualizarPerfil(a);
+
+    div.innerHTML = `
+      <div>
+        <strong>${a.nome}</strong><br>
+        <span>Início: ${a.inicio || '-'}</span> |
+        <span>Vencimento: dia ${a.vencimento || '-'}</span>
+      </div>
+      <span class="editar" onclick="event.stopPropagation(); editarAluno(${i})">🛠</span>
+    `;
+
+    listaAlunos.appendChild(div);
+  });
+}
+</script>
+
+</body>
+</html>
